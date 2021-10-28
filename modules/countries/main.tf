@@ -5,8 +5,10 @@ resource "google_folder" "this" {
 
 module "policies" {
   source = "../../modules/policies"
-  
-  domain = var.domain
+
+  domain     = var.domain
+  policy_for = "folder"
+  parent     = google_folder.this.name
   enable_policies = ["constraints/appengine.disableCodeDownload",
     "constraints/gcp.detailedAuditLoggingMode",
     "constraints/compute.disableInternetNetworkEndpointGroup",
@@ -54,7 +56,3 @@ module "policies" {
 
   allow_domain_policies = ["constraints/essentialcontacts.allowedContactDomains"]
 }
-
-
-
-

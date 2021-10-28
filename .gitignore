@@ -1,2 +1,5 @@
 .terraform
 .gcloud
+
+terraform.tfstate*
+.terraform.lock.hcl

@@ -1,6 +1,31 @@
+resource "google_folder" "this" {
+  display_name = local.name
+  parent       = var.parent
+}
 
-# gbr-hsbc-gpb-devops-dev
-# gbr-hsbc-gpb-devops-stage
-# gbr-hsbc-gpb-devops-prod
+module "dev" {
+  source = "../environment"
 
-# pass in roles and users
+  domain     = var.domain
+  parent     = google_folder.this.name
+  name       = "${local.name}-dev"
+  billing_id = var.billing_id
+}
+
+module "pre" {
+  source = "../environment"
+
+  domain     = var.domain
+  parent     = google_folder.this.name
+  name       = "${local.name}-pre"
+  billing_id = var.billing_id
+}
+
+module "prod" {
+  source = "../environment"
+
+  domain     = var.domain
+  parent     = google_folder.this.name
+  name       = "${local.name}-prod"
+  billing_id = var.billing_id
+}
